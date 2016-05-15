@@ -4,8 +4,10 @@
 
 (defn- make-config
   [{:keys [uri username password auto-commit? conn-timeout idle-timeout
-           max-lifetime conn-test-query min-idle max-pool-size pool-name]}]
+           max-lifetime conn-test-query min-idle max-pool-size pool-name
+           classname]}]
   (let [cfg (HikariConfig.)]
+    (when classname            (.setDriverClassName cfg classname))
     (when uri                  (.setJdbcUrl cfg uri))
     (when username             (.setUsername cfg username))
     (when password             (.setPassword cfg password))
